@@ -1,5 +1,7 @@
-{
-    let result = 5;
-}
+"use strict";
 
-console.log(result);
+let incr = 10,
+    decr = 10;
+
+console.log(++incr);
+console.log(--decr);
