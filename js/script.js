@@ -1,17 +1,21 @@
 "use strict";
 
-let numberOfFilms = prompt('How many films have you watched?', '0');
-let lastFilm = prompt('What is the name of the last film you watched?', 'Back to the Future');
-let rateLastFilm = prompt('How much did they rate the film??', '1');
+const num = 37;
 
-let personalMovieDB = {
-    count: numberOfFilms,
-    movie: {},
-    actors: {},
-    genres: [],
-    privat: false
-};
+(num % 2 === 0) ? console.log(`Number ${num} is even`) : console.log(`Number ${num} is odd`);
 
-personalMovieDB.movie[lastFilm] = rateLastFilm;
+switch (num) {
+    case 0:
+        console.log(`Number is 0`);
+        break;
+
+    case 1:
+        console.log(`Number is 1`);
+        break;
+
+    default:
+        console.log('Exit');
+        break;
+}
 
 // console.log(personalMovieDB);
