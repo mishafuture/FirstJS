@@ -14,7 +14,13 @@ let countFilmsRequest = 2;
 let i = 0;
 
 while (i < countFilmsRequest) {
-    let lastFilm = prompt('What is the name of the last film you watched?', 'Back to the Future');
+    let lastFilm = '';
+
+    do {
+        lastFilm = prompt('What is the name of the last film you watched?', 'Back to the Future');
+    }
+    while (lastFilm === '' || lastFilm.length > 50);
+
     personalMovieDB.movie[lastFilm] = prompt('How much did they rate the film??', '1');
 
     i++;
