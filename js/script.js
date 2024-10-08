@@ -1,7 +1,5 @@
 "use strict";
 
-let incr = 10,
-    decr = 10;
+let numberOfFilms = prompt('How many films have you watched?', '');
 
-console.log(++incr);
-console.log(--decr);
+// console.log(numberOfFilms);
