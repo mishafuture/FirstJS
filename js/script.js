@@ -1,8 +1,6 @@
 "use strict";
 
 let numberOfFilms = prompt('How many films have you watched?', '0');
-let lastFilm = prompt('What is the name of the last film you watched?', 'Back to the Future');
-let rateLastFilm = prompt('How much did they rate the film??', '1');
 
 let personalMovieDB = {
     count: numberOfFilms,
@@ -12,6 +10,14 @@ let personalMovieDB = {
     privat: false
 };
 
-personalMovieDB.movie[lastFilm] = rateLastFilm;
+let countFilmsRequest = 2;
+let i = 0;
 
-// console.log(personalMovieDB);
+while (i < countFilmsRequest) {
+    let lastFilm = prompt('What is the name of the last film you watched?', 'Back to the Future');
+    personalMovieDB.movie[lastFilm] = prompt('How much did they rate the film??', '1');
+
+    i++;
+}
+
+console.log(personalMovieDB);
