@@ -1,21 +1,12 @@
 "use strict";
 
-const num = 37;
+let res = '';
 
-(num % 2 === 0) ? console.log(`Number ${num} is even`) : console.log(`Number ${num} is odd`);
-
-switch (num) {
-    case 0:
-        console.log(`Number is 0`);
-        break;
-
-    case 1:
-        console.log(`Number is 1`);
-        break;
-
-    default:
-        console.log('Exit');
-        break;
+for (let i = 0; i < 3; i++) {
+    for (let j = 0; j <= i; j++) {
+        res += '*'
+    }
+    res += '\n';
 }
 
-// console.log(personalMovieDB);
+console.log(res);
