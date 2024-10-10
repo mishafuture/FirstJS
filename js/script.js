@@ -1,11 +1,9 @@
-"use strict";
+'use strict';
 
-L: function f() {
-    console.log("Hello");
+let str = "hello world";
 
-    console.log("sgwg");
+function ucFirst(str) {
+    return str[0].toUpperCase() + str.slice(1);
 }
 
-f();
-
-console.log("World!")
+console.log(ucFirst(str));
