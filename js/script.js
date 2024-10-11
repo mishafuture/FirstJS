@@ -28,8 +28,10 @@ function rememberMyFilms() {
         let rate = '';
 
         do {
-            lastFilm = prompt('What is the name of the last film you watched?', 'Back to the Future');
-            rate = prompt('How much did they rate the film??', '1');
+            lastFilm = prompt('What is the name of the last film you watched?',
+                'Back to the Future').trim();
+            rate = prompt('How much did they rate the film??',
+                '1').trim();
         }
         while (lastFilm === null ||
         lastFilm === '' ||
