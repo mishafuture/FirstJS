@@ -1,28 +1,15 @@
 'use strict';
 
-function first() {
-    // Do something
-
-    setTimeout(function () {
-        console.log('Hello World!');
-    }, 1000);
+function loadScripts(src, callback) {
+    let script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = src;
+    script.onload = () => callback(script);
+    document.head.append(script);
 }
 
-function second() {
-    console.log('Hello World!1');
-}
-
-/*first();
-second();*/
-
-function learn(lang, callback) {
-    console.log(`I learn ${lang}`);
-
-    callback();
-}
-
-function done() {
-    console.log('I am done learning project!');
-}
-
-learn('Javascript', done);
+loadScripts('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',
+    script => {
+    alert(`Script ${script} is already loaded.`);
+    alert( _ );
+});
