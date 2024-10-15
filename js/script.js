@@ -60,9 +60,20 @@ let personalMovieDB = {
     },
 
     writeYourGenres: function writeYourGenres() {
+        let answer = '';
+
         for (let i = 0; i < 3; i++) {
-            this.genres.push(prompt(`What\'s your number ${i + 1} favorite genre?`));
+            answer = prompt(`What\'s your number ${i + 1} favorite genre?`, '');
+
+            if (answer === null || answer.trim() === '')
+                i--;
+            else
+                this.genres.push(answer);
         }
+
+        this.genres.forEach((genre, index) => {
+           console.log(`My favorite genre #${++index} is ${genre}`);
+        });
     },
 
     toggleVisibleMyDB: function() {
@@ -72,11 +83,7 @@ let personalMovieDB = {
 
 /*personalMovieDB.start();
 personalMovieDB.rememberMyFilms();
-personalMovieDB.detectPersonalLevel();
-personalMovieDB.writeYourGenres();*/
-/*
+personalMovieDB.detectPersonalLevel();*/
+personalMovieDB.writeYourGenres();
 personalMovieDB.showMyDB();
-personalMovieDB.toggleVisibleMyDB();
-personalMovieDB.showMyDB();
-personalMovieDB.toggleVisibleMyDB();
-personalMovieDB.showMyDB();*/
+// personalMovieDB.toggleVisibleMyDB();
