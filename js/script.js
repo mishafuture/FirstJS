@@ -1,90 +1,40 @@
 "use strict";
 
-/*
-function pow(number, degree) {
-    return (degree === 1 ? number : number * pow(number, degree - 1));
-}
+window.addEventListener('DOMContentLoaded', () => {
+    const box = document.querySelector('.box');
 
-console.log(pow(2, 2));
-console.log(pow(2, 4));
-console.log(pow(2, 5));
-console.log(pow(2, 3));*/
+    let startTime;
+    let betw = {}
+    let endTime;
 
-let students = {
-    js : [{
-        name: 'John',
-        progress: 100
-    }, {
-        name: 'Ivan',
-        progress: 60
-    }],
+    box.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-    html : {
-        basic: [{
-            name: 'Peter',
-            progress: 20
-        }, {
-            name: 'Ivan',
-            progress: 18
-        }],
+        startTime = new Date().getTime();
+        betw.x = e.changedTouches[0].pageX;
+        betw.y = e.changedTouches[0].pageY;
+    }, false);
 
-        pro: [{
-            name: 'Sam',
-            progress: 10
-        }]
-    }
-};
+    box.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-function getTotalProgressByIteration(data) {
-    let count = 0;
-    let total = 0;
-
-    for (const course of Object.values(data)) {
-        if (Array.isArray(course)) {
-            count += course.length;
-
-            for (let i = 0; i < course.length; i++) {
-                total += course[i].progress;
-            }
+        endTime = new Date().getTime();
+        if (e.changedTouches[0].pageX === betw.x && e.changedTouches[0].pageY === betw.y &&
+            (endTime - startTime) > 800) {
+            console.log("It was long tap");
         }
-        else {
-            for (const subCourse of Object.values(course)) {
-                count += subCourse.length;
+        else
+            console.log("It was common tap");
+    }, false);
 
-                for (let i = 0; i < subCourse.length; i++) {
-                    total += subCourse[i].progress;
-                }
-            }
-        }
-    }
+/*    box.addEventListener('touchmove', (e) => {
+        console.log('move');
+        console.log(e.targetTouches[0].pageX);
+    });
 
-    return total / count;
-}
-
-function getTotalProgressByRecursion(data) {
-    let total = 0;
-
-    if (Array.isArray(data)) {
-        for (let i = 0; i < data.length; i++) {
-            total += data[i].progress;
-        }
-
-        return [total, data.length];
-    }
-    else {
-        let total = [0, 0];
-
-        for (const subData of Object.values(data)) {
-            const subDataArray = getTotalProgressByRecursion(subData);
-            total[0] += subDataArray[0];
-            total[1] += subDataArray[1];
-        }
-
-        return total;
-    }
-}
-
-console.log(getTotalProgressByIteration(students));
-
-const result = getTotalProgressByRecursion(students);
-console.log(result[0] / result[1]);
+    box.addEventListener('touchend', () => {
+        console.log('end');
+    });*/
+});
