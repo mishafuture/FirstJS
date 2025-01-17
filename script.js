@@ -1,98 +1,60 @@
 "use strict";
 
-const counter = (function () {
-    let count = 0;
+const strArray = ['JavaScript', 'Python', 'PHP', 'Java', 'C'];
 
-    return {
-        increment: function () {
-            count++;
-        },
-        decrement: function () {
-            count--;
-        },
-        getValue: function () {
-            return count;
-        }
-    }
-})();
+function mapForEach(array, fn) {
+        if (!Array.isArray(array) || !array.length || typeof fn !== 'function')
+            return [];
 
-counter.increment();
-counter.increment();
-counter.increment();
-console.log(counter.getValue());
-counter.decrement();
-counter.decrement();
-console.log(counter.getValue());
+        const newArray = [];
 
-const counter1 = {
-    count: 0,
-    increment: function () {
-        this.count += 1;
-    },
-    decrement: function () {
-        this.count -= 1;
-    },
-    getValue: function () {
-        return this.count;
-    }
+        array.forEach(item => {
+            newArray.push(fn(item));
+        });
+
+        return newArray;
 }
 
-/*class Menu {
-    constructor(elem) {
-        elem.onclick = this.onClick.bind(this);
-    }
+console.log(strArray);
+console.log(mapForEach(strArray, function (item) {
+    return item.length;
+}));
 
-    getPersonInfo() {
-        const name = document.querySelector("#nameInput").value;
-        const age = document.querySelector("#ageInput").value;
+function filter(array, fn) {
+    if (!Array.isArray(array) || !array.length || typeof fn !== 'function')
+        return [];
 
-        return [name, age];
-    }
+    const newArray = [];
 
-    add() {
-        const newTr = document.createElement("tr");
-        const newTdName = document.createElement("td");
-        const newTdAge = document.createElement("td");
-
-        const [name, age] = this.getPersonInfo();
-
-        newTdName.textContent = name;
-        newTdAge.textContent = age;
-
-        newTr.append(newTdName);
-        newTr.append(newTdAge);
-        tableBody.append(newTr);
-    }
-
-    delete() {
-        const tableRows = tableBody.querySelectorAll("tr");
-        const [name, age] = this.getPersonInfo();
-
-        for (let i = 0; i < tableRows.length; i++) {
-            const cells = tableRows[i].querySelectorAll("td");
-
-            if (cells[0].textContent.trim() === name &&
-                cells[1].textContent.trim() === age) {
-                tableRows[i].remove();
-            }
+    array.forEach(item => {
+        if (fn(item)) {
+            newArray.push(item);
         }
-    }
+    });
 
-    search() {
-        alert("was found");
-    }
-
-    onClick() {
-        let action = event.target.dataset.action;
-
-        if (action) {
-            this[action]();
-        }
-    }
+    return newArray;
 }
 
-let menu = document.querySelector('#menu'),
-    tableBody = document.querySelector('tbody');
+console.log(filter(strArray, function (item) {
+    return item.length > 3;
+}));
 
-new Menu(menu);*/
+const numArray = [1, 2, 3, 4, 5];
 
+function reduce(array, fn, initialValue) {
+    if (!Array.isArray(array) || !array.length || typeof fn !== 'function')
+        return [];
+
+    const hasInitialValue = initialValue !== undefined;
+    let accumulator = hasInitialValue ? initialValue : array[0];
+
+    for (let i = hasInitialValue ? 0 : 1; i < array.length; i++) {
+        accumulator = fn(accumulator, array[i], array);
+    }
+
+    return accumulator;
+}
+
+console.log(reduce(numArray, function (accumulator, currentValue) {
+    return accumulator + currentValue;
+}));
