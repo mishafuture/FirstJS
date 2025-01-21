@@ -1,60 +1,34 @@
 "use strict";
 
-const strArray = ['JavaScript', 'Python', 'PHP', 'Java', 'C'];
-
-function mapForEach(array, fn) {
-        if (!Array.isArray(array) || !array.length || typeof fn !== 'function')
-            return [];
-
-        const newArray = [];
-
-        array.forEach(item => {
-            newArray.push(fn(item));
-        });
-
-        return newArray;
-}
-
-console.log(strArray);
-console.log(mapForEach(strArray, function (item) {
-    return item.length;
-}));
-
-function filter(array, fn) {
-    if (!Array.isArray(array) || !array.length || typeof fn !== 'function')
-        return [];
-
-    const newArray = [];
-
-    array.forEach(item => {
-        if (fn(item)) {
-            newArray.push(item);
-        }
-    });
-
-    return newArray;
-}
-
-console.log(filter(strArray, function (item) {
-    return item.length > 3;
-}));
-
-const numArray = [1, 2, 3, 4, 5];
-
-function reduce(array, fn, initialValue) {
-    if (!Array.isArray(array) || !array.length || typeof fn !== 'function')
-        return [];
-
-    const hasInitialValue = initialValue !== undefined;
-    let accumulator = hasInitialValue ? initialValue : array[0];
-
-    for (let i = hasInitialValue ? 0 : 1; i < array.length; i++) {
-        accumulator = fn(accumulator, array[i], array);
+class Rectangle {
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
     }
 
-    return accumulator;
+    calculateArea() {
+        return this.width * this.height;
+    }
 }
 
-console.log(reduce(numArray, function (accumulator, currentValue) {
-    return accumulator + currentValue;
-}));
+class ColoredRectangleWithText extends Rectangle {
+    constructor(width, height, text, backgroundColor) {
+        super(width, height);
+        this.text = text;
+        this.backgroundColor = backgroundColor;
+    }
+
+    showMyProps() {
+        console.log(`My Props: text '${this.text}' and backgroundColor is ${this.backgroundColor} and has area ${this.calculateArea()}`);
+    }
+}
+
+const square = new Rectangle(10, 10);
+const longRectangle = new Rectangle(20, 100);
+
+console.log(square.calculateArea());
+console.log(longRectangle.calculateArea());
+
+const redRectangle = new ColoredRectangleWithText(20, 30, 'New Rectangle', 'red');
+
+redRectangle.showMyProps();
