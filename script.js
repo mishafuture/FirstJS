@@ -1,29 +1,19 @@
 'use strict';
 
-let xhr = new XMLHttpRequest();
+function Example(name, text) {
+    this.name = name;
+    this.text = text;
+    this.getThis = () => this;
+}
+//Example.prototype = 42;
 
-xhr.open('GET', 'data.txt', true);
-xhr.send(null);
+const example = new Example('test', 'some text');
+const example1 = new Example('test1', 'some text1');
+console.log(example.getThis());
 
-xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-        console.log(xhr.responseText);
-    }
+Example.prototype.getName = function () {
+    return this.name;
 }
 
-fetch('data.txt')
-    .then(res => res.text())
-    .then(data => console.log(data))
-    .catch(err => console.log(err.message));
-
-fetch('‘https://api.example.com/data', {
-    method: 'POST',
-    body: JSON.stringify({key:`value`}),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-
+console.log(example1.getName());
+console.log(example.getName());
