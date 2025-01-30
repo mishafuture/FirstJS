@@ -1,12 +1,19 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+.paragraph {
+    text-align: left;
+    width: 25%;
+    height: auto;
+    border-top: 2px #8bcf17 solid;
+    margin: auto;
+    padding: 0 10px 1px 15px;
+    background: #e9fae0;
+    font-size: 17px;
 }
 
-.box {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 10px;
-    background-color: black;
+.close-btn {
+    float: right;
+    margin-top: 5px;
+    font-size: 19px;
+    border: none;
+    background-color: #e9fae0;
+    color: #8d0e0e;
 }
