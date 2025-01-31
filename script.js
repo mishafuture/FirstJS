@@ -1,28 +1,37 @@
 'use strict';
 
-function addSpan() {
-    document.querySelector('.life-forms')
-        .querySelectorAll('li').forEach(li => {
-            const span = document.createElement('span');
+let tooltipElem;
 
-            li.prepend(span);
-            span.append(span.nextSibling);
-    })
-}
+document.addEventListener('mouseover', (event) => {
+    const target = event.target;
 
-window.addEventListener('DOMContentLoaded', () => {
-    addSpan();
+    const tooltipHtml = target.dataset.tooltip;
+    if (!tooltipHtml) return;
 
-    document.querySelector('.life-forms')
-        .addEventListener('click', (event) => {
-            const target = event.target;
+    tooltipElem = document.createElement('div');
+    tooltipElem.classList.add('tooltip');
+    tooltipElem.innerHTML = tooltipHtml;
+    document.body.append(tooltipElem);
 
-            if (target.tagName.toLowerCase() === 'span') {
-                const childrenContainer = target.parentNode.querySelector('ul');
+    const coords = target.getBoundingClientRect();
 
-                if (childrenContainer) {
-                    childrenContainer.hidden = !childrenContainer.hidden;
-                }
-            }
-    })
-});
+    let top = coords.top - tooltipElem.offsetHeight - 5;
+    if (top < 0) {
+        top = coords.top + target.offsetHeight + 5;
+    }
+
+    let left = coords.left + (coords.width - tooltipElem.offsetWidth) / 2;
+    if (left < 5) {
+        left = coords.left;
+    }
+
+    tooltipElem.style.left = left + 'px';
+    tooltipElem.style.top = top + 'px';
+})
+
+document.addEventListener('mouseout', () => {
+    if (tooltipElem) {
+        tooltipElem.remove();
+        tooltipElem = null;
+    }
+})

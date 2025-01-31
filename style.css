@@ -1,4 +1,10 @@
-.life-forms span:hover {
-    font-weight: bold;
-    cursor: pointer;
+.tooltip {
+    width: fit-content;
+    border: 1px solid #8f8f8f;
+    border-radius: 5px;
+    padding: 9px;
+    text-align: center;
+    box-shadow: 3px 3px 3px #aeaeae;
+    position: absolute;
+    background-color: #e6e5e5;
 }
