@@ -1,37 +1,29 @@
 'use strict';
 
-let tooltipElem;
+const tGrid = document.querySelector('#grid');
 
-document.addEventListener('mouseover', (event) => {
+tGrid.addEventListener('click', (event) => {
     const target = event.target;
 
-    const tooltipHtml = target.dataset.tooltip;
-    if (!tooltipHtml) return;
+    if (target.tagName.toLowerCase() !== 'th') return;
 
-    tooltipElem = document.createElement('div');
-    tooltipElem.classList.add('tooltip');
-    tooltipElem.innerHTML = tooltipHtml;
-    document.body.append(tooltipElem);
+    const thIndex = target.cellIndex;
+    const type = target.dataset.type;
+    const tbody = tGrid.querySelector('tbody');
+    const rows = Array.from(tbody.rows);
 
-    const coords = target.getBoundingClientRect();
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const a = rowA.cells[thIndex].innerText.trim();
+        const b = rowB.cells[thIndex].innerText.trim();
 
-    let top = coords.top - tooltipElem.offsetHeight - 5;
-    if (top < 0) {
-        top = coords.top + target.offsetHeight + 5;
-    }
+        if (type === 'number') {
+            return a - b;
+        }
+        else if (type === 'string') {
+            return (a.toLowerCase()).localeCompare(b.toUpperCase());
+        }
+        return new Error('Inappropriate data type');
+    })
 
-    let left = coords.left + (coords.width - tooltipElem.offsetWidth) / 2;
-    if (left < 5) {
-        left = coords.left;
-    }
-
-    tooltipElem.style.left = left + 'px';
-    tooltipElem.style.top = top + 'px';
-})
-
-document.addEventListener('mouseout', () => {
-    if (tooltipElem) {
-        tooltipElem.remove();
-        tooltipElem = null;
-    }
+    tbody.append(...sortedRows);
 })
