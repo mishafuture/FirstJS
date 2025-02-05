@@ -1,13 +1,20 @@
-table {
-    border-collapse: collapse;
+.box {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: blue;
 }
-
-th, td {
-    border: 1px solid black;
-    padding: 5px 8px;
-    text-align: left;
+.wrapper {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border: 3px solid red;
 }
-
-th:hover {
-    background-color: yellow;
+button {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 100px;
+  height: 40px;
+  background-color: yellow;
+  border: none;
 }
