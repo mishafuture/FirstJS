@@ -1,75 +1,39 @@
 'use strict';
 
-/*
-const cache = new WeakMap();
+function formatDate(date) {
+    const now = new Date();
+    const diffTime = now.getTime() - date.getTime();
 
-function cacheUser(user) {
-    if (!cache.has(user)) {
-        console.log(user.name + ' has been cached');
-        cache.set(user, Date.now());
+    console.log(diffTime);
+
+    if (diffTime < 1000) {
+        return 'прямо сейчас';
     }
-    return cache.get(user);
+    else if (diffTime < 60 * 1000) {
+        return `${Math.floor(diffTime / 1000)} сек назад`
+    }
+    else if (diffTime < 60 * 60 * 1000) {
+        return `${Math.floor(diffTime / 60 / 1000)} мин назад`
+    }
+    else {
+        const d = [
+            '0' + date.getDate(),
+            '0' + (date.getMonth() + 1),
+            '' + date.getFullYear(),
+            '0' + date.getHours(),
+            '0' + date.getMinutes(),
+        ].map(elem => elem.slice(-2));
+
+        return d.slice(0, 3).join('.') + ', ' + d.slice(-2).join(':');
+    }
 }
 
-let anna = {name: 'anna'};
-const ben = {name: 'ben'};
-cacheUser(anna);
-cacheUser(anna);
-cacheUser(ben);
-
-anna = null;
-
-console.log(cache.has(anna));
-console.log(cache.has(ben));*/
-
 /*
-let messages = [
-    {text: 'Hello', from: 'John'},
-    {text: 'World', from: 'Anna'},
-    {text: 'Hi', from: 'Misha'},
-];
+alert( formatDate(new Date(new Date - 1)) ); // "прямо сейчас"
 
-let readMessages = new WeakSet();
-readMessages.add(messages[0]);
-readMessages.add(messages[2]);
+alert( formatDate(new Date(new Date - 29.5 * 1000)) ); // "30 сек. назад"
 
-let sym = Symbol(2);
-
-readMessages.add(sym);
-
-readMessages.add(messages[0]);
-
-messages.shift();
-
-console.log(readMessages.has(messages[0]));
-console.log(readMessages.has(messages[1]));
-console.log(readMessages.has(messages[2]));
+alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 мин. назад"
 */
 
-// Выполняем `fn` для всего, что хранится внутри объекта.
-function execRecursively(fn, subject, _refs = new WeakSet()) {
-    // Избегаем бесконечно рекурсии
-    if (_refs.has(subject)) {
-        return;
-    }
-
-    fn(subject);
-    if (typeof subject === "object" && subject) {
-        _refs.add(subject);
-        for (const key in subject) {
-            execRecursively(fn, subject[key], _refs);
-        }
-        _refs.delete(subject);
-    }
-}
-
-const foo = {
-    foo: "Foo",
-    bar: {
-        bar: "Bar",
-    },
-};
-
-foo.bar.baz = foo; // Циклическая ссылка!
-execRecursively((obj) => console.log(obj), foo);
-
+alert( formatDate(new Date(new Date - 86400 * 1000)) );
