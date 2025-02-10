@@ -1,38 +1,42 @@
 'use strict';
 
-const addTextBtn = document.querySelector('#add-text'),
-    addElemBtn = document.querySelector('#add-element'),
-    observableDiv = document.querySelector('#watch-me');
+const inputArray = [7, 2, 5, 1, 3, 4, 8, 1];
 
-addTextBtn.addEventListener('click', () => {
-    const p = document.createElement('p');
-    p.innerText = 'Added text';
-    observableDiv.append(p);
-});
+function sort (array) {
+    const evenArray = [],
+        oddArray = [];
 
-addElemBtn.addEventListener('click', () => {
-    const div = document.createElement('div'),
-        p = document.createElement('p');
-    p.innerText = 'Added element';
-    div.append(p);
-    observableDiv.append(div);
-});
+    array.forEach((item) => {
+        if (item % 2 === 0)
+            evenArray.push(item);
+        else
+            oddArray.push(item);
+    });
 
+    function bubbleSort (array, compare) {
+        let length = array.length - 1,
+            swapped;
 
-
-const config = { subtree: true, childList: true },
-    observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-            if (mutation.addedNodes.length > 0) {
-                const lastNode = mutation.addedNodes[mutation.addedNodes.length - 1];
-
-                if (lastNode instanceof HTMLParagraphElement) {
-                    console.log('text added');
-                } else if (lastNode instanceof HTMLDivElement) {
-                    console.log('div added');
+        do {
+            swapped = false;
+            for (let j = 0; j < length; j++) {
+                if (compare(array[j], array[j + 1])) {
+                    let temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                    swapped = true;
                 }
             }
-        }
-});
+            length--;
+        } while(swapped);
+    }
 
-observer.observe(observableDiv, config);
+    bubbleSort(oddArray, (a, b) => a < b);
+    bubbleSort(evenArray, (a, b) => a > b);
+
+    return [...oddArray, ...evenArray];
+}
+
+const result = sort(inputArray);
+console.log(result);
+
