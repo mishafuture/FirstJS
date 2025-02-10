@@ -1,39 +1,38 @@
 'use strict';
 
-function formatDate(date) {
-    const now = new Date();
-    const diffTime = now.getTime() - date.getTime();
+const addTextBtn = document.querySelector('#add-text'),
+    addElemBtn = document.querySelector('#add-element'),
+    observableDiv = document.querySelector('#watch-me');
 
-    console.log(diffTime);
+addTextBtn.addEventListener('click', () => {
+    const p = document.createElement('p');
+    p.innerText = 'Added text';
+    observableDiv.append(p);
+});
 
-    if (diffTime < 1000) {
-        return 'прямо сейчас';
-    }
-    else if (diffTime < 60 * 1000) {
-        return `${Math.floor(diffTime / 1000)} сек назад`
-    }
-    else if (diffTime < 60 * 60 * 1000) {
-        return `${Math.floor(diffTime / 60 / 1000)} мин назад`
-    }
-    else {
-        const d = [
-            '0' + date.getDate(),
-            '0' + (date.getMonth() + 1),
-            '' + date.getFullYear(),
-            '0' + date.getHours(),
-            '0' + date.getMinutes(),
-        ].map(elem => elem.slice(-2));
+addElemBtn.addEventListener('click', () => {
+    const div = document.createElement('div'),
+        p = document.createElement('p');
+    p.innerText = 'Added element';
+    div.append(p);
+    observableDiv.append(div);
+});
 
-        return d.slice(0, 3).join('.') + ', ' + d.slice(-2).join(':');
-    }
-}
 
-/*
-alert( formatDate(new Date(new Date - 1)) ); // "прямо сейчас"
 
-alert( formatDate(new Date(new Date - 29.5 * 1000)) ); // "30 сек. назад"
+const config = { subtree: true, childList: true },
+    observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            if (mutation.addedNodes.length > 0) {
+                const lastNode = mutation.addedNodes[mutation.addedNodes.length - 1];
 
-alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 мин. назад"
-*/
+                if (lastNode instanceof HTMLParagraphElement) {
+                    console.log('text added');
+                } else if (lastNode instanceof HTMLDivElement) {
+                    console.log('div added');
+                }
+            }
+        }
+});
 
-alert( formatDate(new Date(new Date - 86400 * 1000)) );
+observer.observe(observableDiv, config);
