@@ -1,5 +1,15 @@
-#watch-me {
-    border: 1px solid black;
-    padding: 10px;
-    margin-top: 10px;
+label {
+    font-weight: bold;
+    display: block;
+    font-size: 30px;
+}
+
+input {
+    width: 300px;
+    height: 50px;
+    font-size: 30px;
+}
+
+#second {
+    margin-top: 20px;
 }
