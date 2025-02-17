@@ -100,8 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Modal
 
     const modalTrigger = document.querySelectorAll('[data-modal]'),
-        modal = document.querySelector('.modal'),
-        modalCloseBtn = document.querySelector('[data-close]');
+        modal = document.querySelector('.modal');
 
     function openModal() {
         modal.classList.add('show');
@@ -111,7 +110,7 @@ window.addEventListener('DOMContentLoaded', () => {
         clearTimeout(modalTimedId);
     }
 
-    const modalTimedId = setTimeout(openModal, 5000);
+    const modalTimedId = setTimeout(openModal, 50000);
 
     function closeModal() {
         modal.classList.remove('show');
@@ -125,10 +124,8 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    modalCloseBtn.addEventListener('click', closeModal);
-
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
+        if (e.target === modal || e.target.getAttribute('data-close') === '') {
             closeModal();
         }
     });
@@ -197,4 +194,83 @@ window.addEventListener('DOMContentLoaded', () => {
 
     new MenuItem('Меню "Постное"', 'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
         12, 'img/tabs/post.jpg', 'post', '.menu  .container', 'menu__item').render();
+
+    // forms
+
+    const forms = document.querySelectorAll('form'),
+        message = {
+            loading: 'img/form/spinner.svg',
+            success: 'Thank you! We\'l contact with you as soos as possible.',
+            failure: 'Something went wrong. Please try again.',
+        };
+
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const statusMessage = document.createElement('img');
+            statusMessage.src = 'img/form/spinner.svg';
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
+            form.insertAdjacentElement('afterend', statusMessage);
+
+            for (let i = 0; i < 10_000_000; i++) {}
+
+            const req = new XMLHttpRequest();
+            req.open('POST', 'server.php');
+
+            req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            const formData = new FormData(form);
+
+            const obj = {};
+            formData.forEach((value, key) => {
+                obj[key] = value;
+            })
+
+            const jsonObj = JSON.stringify(obj);
+
+            req.addEventListener('load', () => {
+                if (req.status === 200) {
+                    console.log(req.response);
+                    showThanksModal(message.success);
+                    form.reset();
+                    statusMessage.remove();
+                }
+                else {
+                    showThanksModal(message.failure);
+                }
+            })
+            req.send(jsonObj);
+        })
+    }
+
+    forms.forEach((form) => {
+        postData(form);
+    });
+
+    function showThanksModal(message) {
+        const prevModalDialog = document.querySelector('.modal__dialog');
+        prevModalDialog.classList.add('hide');
+
+        openModal();
+
+        const thanksModal = document.createElement('div');
+        thanksModal.classList.add('modal__dialog');
+        thanksModal.innerHTML = `
+        <div class="modal__content">
+            <div data-close class="modal__close">&times;</div>
+            <div class="module__title">${message}</div>
+        </div>
+        `
+
+        document.querySelector('.modal').appendChild(thanksModal);
+
+        setTimeout(() => {
+            thanksModal.remove();
+            prevModalDialog.classList.remove('hide');
+            closeModal();
+        }, 4000)
+    }
 })
