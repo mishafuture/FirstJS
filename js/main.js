@@ -229,15 +229,19 @@ window.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json; charset=UTF-8',
                 },
                 body: JSON.stringify(obj),
-            }).then(response => response.text()
-            ).then(data => {
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                return response.text();
+            }).then(data => {
                 console.log(data);
                 showThanksModal(message.success);
-                statusMessage.remove();
             }).catch(() => {
                 showThanksModal(message.failure);
             }).finally(() => {
                 form.reset();
+                statusMessage.remove();
             })
 
             /*req.addEventListener('load', () => {
@@ -280,6 +284,6 @@ window.addEventListener('DOMContentLoaded', () => {
             thanksModal.remove();
             prevModalDialog.classList.remove('hide');
             closeModal();
-        }, 4000)
+        }, 1500)
     }
 })
