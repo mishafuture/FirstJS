@@ -216,22 +216,31 @@ window.addEventListener('DOMContentLoaded', () => {
             `;
             form.insertAdjacentElement('afterend', statusMessage);
 
-            for (let i = 0; i < 10_000_000; i++) {}
+            const formData = new FormData(form),
+                obj = {};
 
-            const req = new XMLHttpRequest();
-            req.open('POST', 'server.php');
-
-            req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-            const formData = new FormData(form);
-
-            const obj = {};
             formData.forEach((value, key) => {
                 obj[key] = value;
             })
 
-            const jsonObj = JSON.stringify(obj);
+            fetch('server1.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify(obj),
+            }).then(response => response.text()
+            ).then(data => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset();
+            })
 
-            req.addEventListener('load', () => {
+            /*req.addEventListener('load', () => {
                 if (req.status === 200) {
                     console.log(req.response);
                     showThanksModal(message.success);
@@ -241,8 +250,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 else {
                     showThanksModal(message.failure);
                 }
-            })
-            req.send(jsonObj);
+            })*/
+
         })
     }
 
