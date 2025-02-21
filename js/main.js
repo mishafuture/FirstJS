@@ -186,7 +186,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const getResource = async () => {
+/*    const getResource = async () => {
         const res = await fetch('http://localhost:3000/menu');
 
         if (!res.ok) {
@@ -194,12 +194,22 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         return await res.json()
-    }
+    }*/
 
-    getResource('http://localhost:3000/menu')
+    /*    getResource('http://localhost:3000/menu')
+            .then(data => {
+                data.forEach(({title, descr, price, img, altimg}) => {
+                    new MenuItem(title, descr, price, img, altimg,'.menu  .container', 'menu__item').render();
+                })
+            })
+            .catch(err => {
+                console.error(err);
+            });*/
+
+    axios.get('http://localhost:3000/menu')
         .then(data => {
-            data.forEach(({title, descr, price, img, altimg}) => {
-                new MenuItem(title, descr, price, img, altimg,'.menu  .container', 'menu__item').render();
+            data.data.forEach(({title, descr, price, img, altimg}) => {
+                new MenuItem(title, descr, price, img, altimg, '.menu  .container', 'menu__item').render();
             })
         })
         .catch(err => {
@@ -271,11 +281,11 @@ window.addEventListener('DOMContentLoaded', () => {
                     console.log(data);
                     showThanksModal(message.success);
                 }).catch(() => {
-                    showThanksModal(message.failure);
-                }).finally(() => {
-                    form.reset();
-                    statusMessage.remove();
-                })
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset();
+                statusMessage.remove();
+            })
 
             /*req.addEventListener('load', () => {
                 if (req.status === 200) {
@@ -320,7 +330,49 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 1500)
     }
 
-    fetch('http://localhost:3000/menu')
-        .then(response => response.json())
-        .then(data => console.log(data));
+    //slider
+
+    const sliderCounterWrapper = document.querySelector('.offer__slider-counter');
+
+    function getNewIndex(current, total, direction) {
+        const currentIndex = Number.parseInt(current.textContent),
+            totalIndex = Number.parseInt(total.textContent);
+        let newIndex;
+
+        if (currentIndex + direction > totalIndex)
+            newIndex = 1;
+        else if (currentIndex + direction === 0)
+            newIndex = totalIndex;
+        else
+            newIndex = currentIndex + direction;
+
+        return getZero(newIndex);
+    }
+
+    function showSlide(newIndex, parent = '.offer__slider-wrapper') {
+        const sliderWrapper = document.querySelector(parent);
+        for (let i = 0; i < sliderWrapper.children.length; i++) {
+            sliderWrapper.children[i].classList.remove('show');
+            sliderWrapper.children[i].classList.add('hide');
+            if (i === newIndex - 1) {
+                console.log(sliderWrapper.children[i]);
+                sliderWrapper.children[i].classList.add('show');
+                sliderWrapper.children[i].classList.remove('hide');
+            }
+        }
+    }
+
+    showSlide(3)
+
+    sliderCounterWrapper.querySelectorAll('div').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const current = sliderCounterWrapper.querySelector('#current'),
+                total = sliderCounterWrapper.querySelector('#total');
+            let direction = e.target.classList.contains('offer__slider-prev') ? -1 : 1;
+
+            const newIndex = getNewIndex(current, total, direction);
+            current.textContent = newIndex;
+            showSlide(newIndex);
+        })
+    });
 })
