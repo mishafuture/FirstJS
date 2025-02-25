@@ -15,3 +15,17 @@ button {
 [type=checkbox] {
     margin-top: 20px;
 }
+
+#open_preferences_center {
+    display: inline-block; /* Делаем элемент блочным для управления размерами */
+    padding: 10px 20px; /* Внутренние отступы для лучшего внешнего вида */
+    background-color: #007bff; /* Цвет фона */
+    color: white; /* Цвет текста */
+    text-decoration: none; /* Убираем подчеркивание */
+    border-radius: 5px; /* Закругляем углы */
+    transition: background-color 0.3s ease; /* Плавный переход цвета фона */
+}
+
+#open_preferences_center:hover {
+    background-color: #0056b3; /* Цвет фона при наведении */
+}
