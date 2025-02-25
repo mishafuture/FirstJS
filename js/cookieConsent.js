@@ -1,7 +1,21 @@
 'use strict';
 
 window.addEventListener('DOMContentLoaded', () => {
-    const storageType = localStorage,
+    const cookieStorage = {
+        getItem: (key) => {
+            const cookies = document.cookie.split(';')
+                .map(item => item.split('='))
+                .reduce((acc, [key, value]) => ({...acc,
+                    [key.trim()]: value}), {});
+
+            return decodeURIComponent(cookies[key]);
+        },
+        setItem(key, value) {
+            document.cookie = `${key}=${encodeURIComponent(value)};expires=Fri, 28 Feb 2025 12:00:00 GMT`;
+        }
+    }
+
+    const storageType = cookieStorage,
         consentPropertyType = 'site_consent';
 
     const hasConsented = () => storageType.getItem(consentPropertyType) === "true";
