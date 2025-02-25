@@ -1,32 +1,45 @@
-'use strict';
+'use strict'
 
-window.addEventListener('DOMContentLoaded', () => {
-   const body = document.querySelector('body');
-   const textNode = [];
+/*
+localStorage.setItem('number', '13');
+localStorage.removeItem('number');
+console.log(localStorage.getItem('number'));
+localStorage.clear();
+*/
 
-   function recursionNode(element) {
-        element.childNodes.forEach(node => {
-            if (node.nodeName.match(/^H\d/)) {
-                const obj = {
-                    header: node.nodeName,
-                    content: node.textContent.trim(),
-                }
-                textNode.push(obj);
-            } else {
-                recursionNode(node);
-            }
-        });
-   }
+const checkBox = document.querySelector('#checkbox'),
+    form = document.querySelector('form'),
+    changeColorBtn = document.querySelector('#color');
 
-   recursionNode(body);
+if (localStorage.getItem('isChecked') === 'true') {
+    checkBox.checked = true;
 
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify(textNode),
-    })
-        .then(res => res.json())
-        .then(data => {console.log(data)});
+}
+
+if (localStorage.getItem('bg') === 'changed') {
+    form.style.backgroundColor = 'red';
+}
+
+checkBox.addEventListener('change', () => {
+    localStorage.setItem('isChecked', 'true');
 });
+
+changeColorBtn.addEventListener('click', () => {
+    if (localStorage.getItem('bg') === 'changed') {
+        localStorage.removeItem('bg');
+        form.style.backgroundColor = '#ffffff';
+    } else {
+        localStorage.setItem('bg', 'changed');
+        form.style.backgroundColor = 'red';
+    }
+});
+
+const person = {
+    name: 'John',
+    age: 8,
+};
+const serializedPerson = JSON.stringify(person);
+
+localStorage.setItem('John', serializedPerson);
+
+console.log(JSON.parse(localStorage.getItem('John')));

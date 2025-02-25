@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
+    <title>Заголовок</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>          Calculator currency</h1>
-    <label for="UAH">UAH</label>
-    <input id="UAH" type="text">
-    <label id="second" for="USD">USD</label>
-    <input id="USD" type="text">
+
+    <div class="wrapper">
+        <form class="form-signin">
+            <h2 class="form-signin-heading">This is form</h2>
+            <input type="text" class="form-control">
+            <input id="checkbox" type="checkbox">
+            <button class="btn btn-block btn-lg btn-primary">Confirm</button>
+        </form>
+        <button id="color" class="btn btn-block btn-lg btn-primary">Change color</button>
+    </div>
+
     <script src="js/script.js"></script>
 </body>
 </html>
