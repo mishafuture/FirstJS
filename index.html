@@ -6,6 +6,7 @@
     <title>Food</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/sliderDotStyle.css">
+    <link rel="stylesheet" href="css/cookieConsent.css">
 </head>
 <body>
     <header class="header">
@@ -275,7 +276,16 @@
         </div>
     </div>
 
+    <div class="popup">
+        <div class="container">
+            Я соглашаюсь, что мои cookie будут использованы!
+            <button class="btn_cookie" data-cancel>Cancel</button>
+            <button class="btn_cookie" data-confirm>Accept</button>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.8/axios.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/cookieConsent.js"></script>
 </body>
 </html>
