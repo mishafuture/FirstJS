@@ -9,6 +9,6 @@ console.log(asw.match(reg));*/
 /*const password = prompt('Password');
 console.log(password.replace(/./g, '*'));*/
 
-const asw = 'My name is R2D2';
-const reg = /\w/g;
-console.log(asw.match(reg));
+const asw = 'mis_ko@g.co';
+const emailCheck = /^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+console.log(emailCheck.test(asw));
