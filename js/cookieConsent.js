@@ -63,7 +63,7 @@ class cookieConsent {
     }
 
     setItem = (key, value) => {
-        document.cookie = `${key}=${encodeURIComponent(value)};expires=Fri, 28 Feb 2025 12:00:00 GMT`;
+        document.cookie = `${key}=${encodeURIComponent(value)};expires=Fri, 10 March 2025 12:00:00 GMT`;
     }
 
     hasConsented = () => this.getItem(this.consentPropertyType) === "true";
@@ -107,11 +107,9 @@ function myScripts() {
     console.log('Loading...')
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    new cookieConsent({
-        activeClass: 'popup_active',
-        popup: '.popup',
-        btnConfirm: '[data-confirm]',
-        btnCancel: '[data-cancel]',
-    }).init();
-});
+new cookieConsent({
+    activeClass: 'popup_active',
+    popup: '.popup',
+    btnConfirm: '[data-confirm]',
+    btnCancel: '[data-cancel]',
+}).init();
