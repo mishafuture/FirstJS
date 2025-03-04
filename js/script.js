@@ -1,40 +1,43 @@
 'use strict';
-/*
 
-const person = {
-    name: 'John',
-    age: 25,
+class User {
+    constructor(name, age) {
+        this.name = name;
+        this._age = age;
+    }
 
-    get userAge() {
-        return this.age;
-    },
+    #surname = 'Kovalov';
 
-    set userAge(age) {
-        if (age >= 0) {
-            this.age = age;
+    sayHello() {
+        console.log(`Hello, ${this.name} ${this.#surname} with age ${this._age}`);
+    }
+
+    get age() {
+        return this._age;
+    }
+
+    get surname() {
+        return this.#surname;
+    }
+
+    set age(age) {
+        if (typeof age === 'number' && age > 0 && age < 110)
+            this._age = age;
+        else
+            console.log('age must be positive integer but not more than 110');
+    }
+
+    set surname(surname) {
+        if (surname.length < 4) {
+            console.log('surname must be at least 4 characters long');
+        } else {
+            this.#surname = surname;
         }
     }
 }
 
-console.log(person.userAge = -5);
-console.log(person.userAge);*/
-
-const person = {
-    get name() {
-        return this._name;
-    },
-
-    set name(name) {
-        if (name.length < 3) {
-            console.error('Name should be at least 3 characters long.');
-            return;
-        }
-        this._name = name;
-    }
-}
-
-person.name = 'Ra';
-console.log(person.name);
-
-person.name = 'Misha';
-console.log(person);
+const misha = new User("Misha", 22);
+misha.age = 24;
+misha.sayHello();
+console.log(misha.name + ' ' + misha.age);
+console.log(misha.surname + ' ' + misha.age);
