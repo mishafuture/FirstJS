@@ -5,3 +5,7 @@
 /httpRequests/
 #npm
 ../node_modules
+/codeStyles/codeStyleConfig.xml
+/codeStyles/Project.xml
+/.name
+/jsLibraryMappings.xml
