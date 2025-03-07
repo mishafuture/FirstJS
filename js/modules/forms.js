@@ -1,4 +1,5 @@
 import {openModal, closeModal} from './modal';
+import {postData} from "../services/services";
 
 function forms(formSelector, modalTimedId) {
     // forms
@@ -9,18 +10,6 @@ function forms(formSelector, modalTimedId) {
             success: 'Thank you! We\'l contact with you as soos as possible.',
             failure: 'Something went wrong. Please try again.',
         };
-
-    const postData = async (url, data) => {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: data,
-        })
-
-        return await res.json();
-    }
 
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {

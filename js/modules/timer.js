@@ -1,8 +1,5 @@
-function timer() {
+function timer(id, deadline) {
     // timer
-
-    const deadline = '2025-02.1'
-    setTimer('.timer', deadline);
 
     function getTimeRemaining(endTime) {
         const difTime = Date.parse(endTime) - Date.now();
@@ -49,6 +46,8 @@ function timer() {
                 clearInterval(timerId);
         }
     }
+
+    setTimer(id, deadline);
 }
 
 export default timer;
