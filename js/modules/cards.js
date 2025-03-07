@@ -1,3 +1,5 @@
+import calculator from "./calculator";
+
 function cards() {
     // menu item
 
@@ -94,4 +96,4 @@ function cards() {
     }*/
 }
 
-module.exports = cards;
+export default cards;
