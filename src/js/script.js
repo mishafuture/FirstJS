@@ -1,6 +1,6 @@
-const myModule = require("./main");
+import * as data from "./main.js";
+import say from "./main.js";
 
-const myModuleInstance = new myModule();
-
-myModuleInstance.hello();
-myModuleInstance.goodbye()
+console.log(data.sum(1, 3));
+console.log(data.sum(data.one, data.two));
+say();

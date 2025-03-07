@@ -1,11 +1,13 @@
-function muModule() {
-    this.hello = function (){
-        console.log("Hello");
-    };
+export const one = 1;
 
-    this.goodbye = function (){
-        console.log("Goodbye");
-    };
+function sum(a, b) {
+    return a + b;
 }
 
-module.exports = muModule;
+const two = 2;
+
+export {sum, two}
+
+export default function sayHello() {
+    console.log("Hello");
+}
